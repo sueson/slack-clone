@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
 import "./globals.css";
+
+import { ConvexClientProvider } from "@/components/convex-client-provider";
+
+import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import { Modals } from "@/components/modals";
+
+import { Toaster } from "sonner";
+import { JotaiProvider } from "@/components/jotai-provider";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,12 +35,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ConvexAuthNextjsServerProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <ConvexClientProvider>
+            {/* From jotai-priovider.tsx */}
+            {/* To avoid warning for ( eg. we haven't used proper intialization to use jotai ), so have to wrap the children into jotai provider to avoid that warning */}
+            <JotaiProvider>
+              <Toaster/>
+              <Modals/>  { /* All modals are available in here */ }
+              {/* wrapping the children with nuqs adapter for using nuqs in the workspace layout, so it should wrap the children in root layout */}
+                <NuqsAdapter>
+                  {children}
+                </NuqsAdapter>
+            </JotaiProvider>
+            
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ConvexAuthNextjsServerProvider>
   );
 }
