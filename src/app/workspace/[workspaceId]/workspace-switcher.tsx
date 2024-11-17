@@ -3,7 +3,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
@@ -22,12 +21,13 @@ export const WorkspaceSwitcher = () => {
 
     // By giving underscore says that it already in use without even using it in here (if doesn't it appears error of not uisng the open)...
     const [_open, setOpen] = useCreateWorkspaceModal();
+    console.log("_open: ", _open);
 
     //To access the particular workspace...
     const {data : workspace, isLoading : workspaceLoading} = useGetWorkspace({id : workspaceId});
 
     //To access all the workspaces...
-    const {data : workspaces, isLoading : workspacesLoading} = useGetWorkspaces();
+    const {data : workspaces} = useGetWorkspaces();
 
     // Filtering the workspaces which are not already in use...
     const filteredWorkspaces = workspaces?.filter(

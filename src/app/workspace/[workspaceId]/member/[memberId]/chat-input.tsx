@@ -89,6 +89,7 @@ export const ChatInput = ({ placeholder, conversationId } : ChatInputProps) => {
         }
         catch (error) {
             toast.error("Failed to send message");
+            console.log("Failed to send message", error);
         }
         finally {
             setIsPending(false);

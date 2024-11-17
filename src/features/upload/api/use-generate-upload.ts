@@ -27,6 +27,7 @@ export const useGenerateUploadUrl = () => {
     const mutation = useMutation(api.upload.generatedUploadUrl);
 
     // No need of values so making it _values...
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mutate = useCallback(async (_values : {}, options?: Options) => {
         try {
             setData(null);
