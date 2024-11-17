@@ -20,8 +20,8 @@ export const WorkspaceSwitcher = () => {
     const workspaceId = useWorkspaceId();
 
     // By giving underscore says that it already in use without even using it in here (if doesn't it appears error of not uisng the open)...
-    const [_open, setOpen] = useCreateWorkspaceModal();
-    console.log("_open: ", _open);
+    const [, setOpen] = useCreateWorkspaceModal();
+    // console.log("_open: ", _open);
 
     //To access the particular workspace...
     const {data : workspace, isLoading : workspaceLoading} = useGetWorkspace({id : workspaceId});
