@@ -21,8 +21,8 @@ export const WorkspaceSidebar = () => {
     const channelId = useChannelId();
 
     // marking open to _open will make it being used...
-    const [_open, setOpen] = useCreateChannelModal();
-    console.log("_open: ", _open);
+    const [, setOpen] = useCreateChannelModal();
+    // console.log("_open: ", _open);
 
     const {data : member, isLoading : memberLoading} = useCurrentMember({workspaceId});
 
